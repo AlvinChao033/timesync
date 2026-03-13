@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TimeZone Checker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">◎ TimeSync</span>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" id="collab-btn" title="Find best collaboration time">⇄ Collaborate</button>
+      <button class="icon-btn" id="feedback-btn" title="Send feedback">✎ Feedback</button>
+      <button class="icon-btn" id="theme-btn" title="Toggle dark mode">◐</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Local Time Hero -->
+    <section class="hero">
+      <div class="hero-label">Your Local Time</div>
+      <div class="hero-tz-row">
+        <select id="local-tz-select" class="local-tz-select" title="Set your local timezone"></select>
+      </div>
+      <div class="hero-time" id="local-time">--:--:--</div>
+      <div class="hero-meta" id="local-meta">--- · ---</div>
+    </section>
+
+    <!-- World Clocks Grid -->
+    <section class="clocks-section">
+      <div class="section-title">World Clocks</div>
+      <div class="clocks-grid" id="clocks-grid">
+        <!-- Cards rendered by JS -->
+      </div>
+    </section>
+
+    <!-- Meeting Planner -->
+    <section class="planner-section" id="planner-section">
+      <button class="planner-toggle" id="planner-toggle" aria-expanded="false">
+        <span class="planner-toggle-label">
+          <span class="planner-icon">◷</span>
+          Meeting Planner
+          <span class="planner-tagline">Pick a time · see everyone's clock</span>
+        </span>
+        <span class="planner-chevron" id="planner-chevron">▸</span>
+      </button>
+
+      <div class="planner-body hidden" id="planner-body">
+        <!-- Inputs row -->
+        <div class="planner-controls">
+          <div class="planner-input-group">
+            <label class="planner-input-label" for="planner-date">Date</label>
+            <input type="date" id="planner-date" class="planner-input" />
+          </div>
+          <div class="planner-input-group">
+            <label class="planner-input-label" for="planner-time">Time (your local)</label>
+            <input type="time" id="planner-time" class="planner-input" />
+          </div>
+          <button class="planner-now-btn" id="planner-now-btn">↺ Now</button>
+        </div>
+
+        <!-- Summary line -->
+        <div class="planner-summary" id="planner-summary"></div>
+
+        <!-- Zone rows -->
+        <div class="planner-grid" id="planner-grid"></div>
+      </div>
+    </section>
+
+    <!-- Add Custom City -->
+    <section class="add-section">
+      <div class="add-row">
+        <select id="tz-select" class="tz-select">
+          <option value="">— Add a timezone —</option>
+        </select>
+        <button class="add-btn" id="add-tz-btn">+ Add</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Collaboration Modal -->
+  <div class="modal-overlay hidden" id="collab-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Best Collaboration Windows</span>
+        <button class="modal-close" id="collab-close">✕</button>
+      </div>
+      <p class="modal-subtitle">Overlapping business hours (9 AM – 6 PM) across all tracked zones</p>
+      <div id="collab-result" class="collab-result"></div>
+      <div class="collab-timeline" id="collab-timeline"></div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal-overlay hidden" id="feedback-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Send Feedback</span>
+        <button class="modal-close" id="feedback-close">✕</button>
+      </div>
+      <form class="feedback-form" id="feedback-form">
+        <label class="form-label">How would you rate your experience?</label>
+        <div class="rating-row" id="rating-row">
+          <button type="button" class="star" data-v="1">★</button>
+          <button type="button" class="star" data-v="2">★</button>
+          <button type="button" class="star" data-v="3">★</button>
+          <button type="button" class="star" data-v="4">★</button>
+          <button type="button" class="star" data-v="5">★</button>
+        </div>
+        <label class="form-label" for="feedback-type">Category</label>
+        <select id="feedback-type" class="tz-select" style="width:100%">
+          <option value="bug">Bug report</option>
+          <option value="feature">Feature request</option>
+          <option value="ux">UX / Design</option>
+          <option value="other">Other</option>
+        </select>
+        <label class="form-label" for="feedback-msg">Message</label>
+        <textarea id="feedback-msg" class="feedback-textarea" placeholder="Tell us what you think…" rows="4"></textarea>
+        <button type="submit" class="submit-btn">Send Feedback</button>
+      </form>
+      <div class="feedback-thanks hidden" id="feedback-thanks">
+        <div class="thanks-icon">✓</div>
+        <div class="thanks-text">Thank you for your feedback!</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
